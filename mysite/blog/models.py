@@ -14,10 +14,10 @@ from django.urls import reverse
 #Class: Post
 #takes: author, title, text, creation date, and publish date
 class Post(models.Model):
-    author = models.ForeignKey('auth.User')
-    title = models.CharField(maxlength=200)
+    author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    title = models.CharField(max_length=200)
     text = models.TextField()
-    create_date = models.DateField(default=timezone.now())
+    create_date = models.DateField(default=timezone.now)
     published_date = models.DateField(blank=True,null=True)
 
     #method: publish
@@ -43,10 +43,10 @@ class Post(models.Model):
 #Class: Comment
 #takes: post, author, text, creation date, and approved_comment
 class Comment(models.Model):
-    post = models.ForeignKey('blog.Post', related_name='comments')
-    author = models.CharField(maxlength=200)
+    post = models.ForeignKey('blog.Post', related_name='comments', on_delete=models.CASCADE)
+    author = models.CharField(max_length=200)
     text = models.TextField()
-    create_date = models.DateField(default=timezone.now())
+    create_date = models.DateField(default=timezone.now)
     approved_comment = models.BooleanField(default=False)
 
     #method: approve
